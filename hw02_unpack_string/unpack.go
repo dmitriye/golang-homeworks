@@ -16,11 +16,11 @@ func Unpack(str string) (string, error) {
 		return "", nil
 	}
 
-	var runes = []rune(str)
-	var count = len(runes)
+	runes := []rune(str)
+	count := len(runes)
 	var strBuilder strings.Builder
 
-	var getNext = func(index int, slice []rune) rune {
+	getNext := func(index int, slice []rune) rune {
 		value := '1'
 		if index < len(slice)-1 {
 			value = slice[index+1]
