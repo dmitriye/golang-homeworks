@@ -10,7 +10,7 @@ func Top10(str string) []string {
 	top := 10
 	words := strings.Fields(str)
 
-	regex := regexp.MustCompile("[^а-яА-ЯёЁ\\-]")
+	regex := regexp.MustCompile(`[^а-яА-ЯёЁ\-]`)
 	freq := map[string]int{}
 	for _, word := range words {
 		if word == "-" {
