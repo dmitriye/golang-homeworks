@@ -23,9 +23,7 @@ func TestUnpack(t *testing.T) {
 		{input: `qwe\\\3`, expected: `qwe\3`},
 		// my
 		{input: `\1`, expected: `1`},
-		// {input: "\\", expected: "\\"},
 		{input: "abc🐋5", expected: "abc🐋🐋🐋🐋🐋"},
-		// {input: `\`, expected: `\`},
 		{input: `\4\5`, expected: `45`},
 		{input: `\5`, expected: `5`},
 		{input: `a\\t`, expected: `a\t`},
