@@ -95,8 +95,20 @@ func (l *list) Remove(i *ListItem) {
 
 func (l *list) MoveToFront(i *ListItem) {
 	l.Remove(i)
-	l.PushFront(i.Value)
-	i = nil
+
+	i.Prev = nil
+	i.Next = l.front
+
+	if l.front != nil {
+		l.front.Prev = i
+	}
+
+	if l.back == nil {
+		l.back = i
+	}
+
+	l.front = i
+	l.len++
 }
 
 func NewList() List {
