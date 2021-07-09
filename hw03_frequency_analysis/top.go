@@ -6,8 +6,9 @@ import (
 	"strings"
 )
 
+const top = 10
+
 func Top10(str string) []string {
-	top := 10
 	words := strings.Fields(str)
 
 	regex := regexp.MustCompile(`[^а-яА-ЯёЁ\-]`)
