@@ -9,9 +9,15 @@ import (
 
 var ErrInvalidString = errors.New("invalid string")
 
-func Unpack(str string) (string, error) {
-	// fmt.Printf(" Start to unpacking string: %s\n", str)
+func getNextRune(index int, slice []rune) rune {
+	value := '1'
+	if index < len(slice)-1 {
+		value = slice[index+1]
+	}
+	return value
+}
 
+func Unpack(str string) (string, error) {
 	if str == "" {
 		return "", nil
 	}
@@ -20,19 +26,9 @@ func Unpack(str string) (string, error) {
 	count := len(runes)
 	var strBuilder strings.Builder
 
-	getNext := func(index int, slice []rune) rune {
-		value := '1'
-		if index < len(slice)-1 {
-			value = slice[index+1]
-		}
-		return value
-	}
-
 	for i := 0; i < count; i++ {
 		cur := runes[i]
-		next := getNext(i, runes)
-
-		// fmt.Printf("1. i = %d; cur = %s; next = %s;\n", i, string(cur), string(next))
+		next := getNextRune(i, runes)
 
 		if unicode.IsDigit(cur) {
 			return "", ErrInvalidString
@@ -43,9 +39,8 @@ func Unpack(str string) (string, error) {
 				return "", ErrInvalidString
 			}
 			i++
-
 			cur = next
-			next = getNext(i, runes)
+			next = getNextRune(i, runes)
 		}
 
 		if unicode.IsDigit(next) {
@@ -53,8 +48,6 @@ func Unpack(str string) (string, error) {
 		} else {
 			next = '1'
 		}
-
-		// fmt.Printf("2. i = %d; cur = %s; next = %s;\n", i, string(cur), string(next))
 
 		repeat, _ := strconv.Atoi(string(next))
 		strBuilder.WriteString(strings.Repeat(string(cur), repeat))
